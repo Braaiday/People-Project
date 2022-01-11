@@ -1,0 +1,13 @@
+<table class="table table-striped">
+    <thead>
+        <th>Months</th>
+        <th>Birthdays :)</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of _ComplexObjectList">
+            <td>{{dataItem.month}}</td>
+            <td>{{dataItem.count}}</td>
+        </tr>
+    </tbody>
+</table>
+
