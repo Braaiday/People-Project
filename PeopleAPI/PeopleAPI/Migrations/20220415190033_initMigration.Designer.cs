@@ -10,8 +10,8 @@ using PeopleAPI.Data;
 namespace PeopleAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220111171916_IntialMigration")]
-    partial class IntialMigration
+    [Migration("20220415190033_initMigration")]
+    partial class initMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,10 +31,19 @@ namespace PeopleAPI.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PersonName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PersonSurname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("PersonId");
