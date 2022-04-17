@@ -10,7 +10,7 @@ using PeopleAPI.Data;
 namespace PeopleAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220415190033_initMigration")]
+    [Migration("20220417013144_initMigration")]
     partial class initMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

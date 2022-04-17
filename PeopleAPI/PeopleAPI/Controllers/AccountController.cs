@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PeopleAPI.Data;
 using PeopleAPI.Models;
+using WebApi.Models;
+using WebApi.Services;
 
 namespace PeopleAPI.Controllers
 {
@@ -14,41 +16,32 @@ namespace PeopleAPI.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly AppDbContext _context;
 
-        public AccountController(AppDbContext context)
+
+        private IUserService _userService;
+
+        public AccountController(IUserService userService)
         {
-            _context = context;
+            _userService = userService;
         }
-        // GET: api/Login/pierre.putter@gmail.com/123
-        [HttpGet("login/{username}/{.}")]
-        public async Task<ActionResult<String>> Login(string username, string password)
-        {
 
-            string curPassword;
-            string curUsername;
-            string role = null;
-            Boolean foundPersonWithCred = false;
-            List<Person> people = await _context.People.ToListAsync();
-            foreach (Person thePerson in people)
-            {
-                curUsername = thePerson.Username;
-                curPassword = thePerson.Password;
-                if ((username == curUsername) && (password == curPassword))
-                {
-                    foundPersonWithCred = true;
-                    role = thePerson.Role;
-                }
-            }
-            if (foundPersonWithCred == false)
-            {
-                return "notfound";
-            }
-            if (role == null)
-            {
-                return "notfound";
-            }
-            else return role;
+        [HttpPost("authenticate")]
+        public IActionResult Authenticate(AuthenticateRequest model)
+        {
+            var response = _userService.Authenticate(model);
+
+            if (response == null)
+                return BadRequest(new { message = "Username or password is incorrect" });
+
+            return Ok(response);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var people = _userService.GetPeople();
+            return Ok(people);
         }
     }
 }

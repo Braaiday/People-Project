@@ -13,18 +13,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Helpers;
+using WebApi.Services;
 
 namespace PeopleAPI
 {
     public class Startup
     {
         public IConfiguration _configuration { get; }
+
+        //private readonly AppDbContext _context;
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -36,26 +38,19 @@ namespace PeopleAPI
 
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
+            // configure strongly typed settings object
+            services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
+
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
+
             ///My Dependencies end.
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PeopleAPI", Version = "v1" });
-            });
-
-            //Maping backend API TO OUR FRONTEND
-
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("https://localhost:44331", "http://localhost:3000", "http://localhost:4200")
-                                            .AllowAnyHeader()
-                                            .AllowAnyMethod();
-                    });
-            });
+            });    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,9 +63,20 @@ namespace PeopleAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PeopleAPI v1"));
             }
 
+
+
             //Make the API use cors
-            app.UseCors();
             ///
+
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseHttpsRedirection();
 
