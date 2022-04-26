@@ -9,5 +9,6 @@ namespace PeopleAPI.Data
     public interface IPersonRepository : IRepositoryBase<Person>
     {
         Person GetPersonDetails(int id);
+
     }
 }

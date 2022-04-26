@@ -52,6 +52,7 @@ namespace WebApi.Services
 
         public async Task<ActionResult<IEnumerable<Person>>> GetPeople()
         {
+            var people = _context.People.ToList();
             return await _context.People.ToListAsync();
         }
 

@@ -38,10 +38,10 @@ namespace PeopleAPI.Controllers
 
         [Authorize]
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var people = _userService.GetPeople();
-            return Ok(people);
+            var people = await _userService.GetPeople();
+            return Ok(people.Value);
         }
     }
 }

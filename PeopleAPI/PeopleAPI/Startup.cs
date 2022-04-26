@@ -22,7 +22,6 @@ namespace PeopleAPI
     {
         public IConfiguration _configuration { get; }
 
-        //private readonly AppDbContext _context;
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
