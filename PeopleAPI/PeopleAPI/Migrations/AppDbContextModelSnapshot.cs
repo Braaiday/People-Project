@@ -48,6 +48,33 @@ namespace PeopleAPI.Migrations
 
                     b.ToTable("People");
                 });
+
+            modelBuilder.Entity("PeopleAPI.Models.Product", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("imageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("imageURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("productDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("productName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("productPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Products");
+                });
 #pragma warning restore 612, 618
         }
     }

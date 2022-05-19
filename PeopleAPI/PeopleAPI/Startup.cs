@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PeopleAPI.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Helpers;
@@ -35,7 +37,7 @@ namespace PeopleAPI
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            //services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 
             // configure strongly typed settings object
             services.Configure<AppSettings>(_configuration.GetSection("AppSettings"));
@@ -63,7 +65,7 @@ namespace PeopleAPI
             }
 
 
-
+                
             //Make the API use cors
             ///
 
@@ -76,6 +78,15 @@ namespace PeopleAPI
 
             // custom jwt auth middleware
             app.UseMiddleware<JwtMiddleware>();
+
+            // Static Files
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(
+                    Directory.GetCurrentDirectory(), "Images")),
+                RequestPath = "/Images"
+            });
 
             app.UseHttpsRedirection();
 

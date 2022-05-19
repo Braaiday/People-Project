@@ -15,12 +15,13 @@ namespace PeopleAPI.Data
 
         public DbSet<Person> People { get; set; }
 
+        public DbSet<Product> Products { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Person>().ToTable("People");
-            
+            modelBuilder.Entity<Product>().ToTable("Products");
         }
 
     }

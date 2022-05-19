@@ -24,12 +24,32 @@ namespace PeopleAPI.Migrations
                 {
                     table.PrimaryKey("PK_People", x => x.PersonId);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    productName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    productPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    productDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    imageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    imageURL = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.id);
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "People");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }

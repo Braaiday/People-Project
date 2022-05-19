@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PeopleAPI.Data;
-using PeopleAPI.Models;
 using WebApi.Models;
 using WebApi.Services;
 
@@ -36,6 +29,7 @@ namespace PeopleAPI.Controllers
             return Ok(response);
         }
 
+        //This is better Practice for security, Logic that works with in the service
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()

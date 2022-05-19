@@ -10,6 +10,9 @@ using PeopleAPI.Models;
 
 namespace PeopleAPI.Controllers
 {
+    //Remeber Rather Make A service like the user service to deal with any db Context there :)
+    //And look at start up how to add it as scoped !!!!!
+    //I am doing this for quick demo purposes, since your job to build project!!!
     [Route("api/[controller]")]
     [ApiController]
     public class PeopleController : ControllerBase
