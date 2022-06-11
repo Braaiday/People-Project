@@ -39,7 +39,7 @@ namespace PeopleAPI.Controllers
                 var httpRequest = Request.Form;
                 var postedFile = httpRequest.Files[0];
                 string filename = postedFile.FileName;
-                var physicalPath = _env.ContentRootPath + "/Images" + filename;
+                var physicalPath = _env.ContentRootPath + "/Images/" + filename;
 
                 using (var strean = new FileStream(physicalPath, FileMode.Create))
                 {
@@ -94,7 +94,7 @@ namespace PeopleAPI.Controllers
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPerson", new { id = product.id }, product);
+            return CreatedAtAction("GetProduct", new { id = product.productId }, product);
         }
 
         // DELETE: api/Product/5
@@ -115,7 +115,7 @@ namespace PeopleAPI.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Products.Any(e => e.id == id);
+            return _context.Products.Any(e => e.productId == id);
         }
     }
 }

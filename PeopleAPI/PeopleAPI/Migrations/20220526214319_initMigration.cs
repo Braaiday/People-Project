@@ -29,7 +29,7 @@ namespace PeopleAPI.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    productId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     productName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     productPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -39,7 +39,7 @@ namespace PeopleAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.id);
+                    table.PrimaryKey("PK_Products", x => x.productId);
                 });
         }
 

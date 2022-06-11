@@ -10,7 +10,7 @@ using PeopleAPI.Data;
 namespace PeopleAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220519190453_initMigration")]
+    [Migration("20220526214319_initMigration")]
     partial class initMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace PeopleAPI.Migrations
 
             modelBuilder.Entity("PeopleAPI.Models.Product", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("productId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -73,7 +73,7 @@ namespace PeopleAPI.Migrations
                     b.Property<decimal>("productPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("id");
+                    b.HasKey("productId");
 
                     b.ToTable("Products");
                 });

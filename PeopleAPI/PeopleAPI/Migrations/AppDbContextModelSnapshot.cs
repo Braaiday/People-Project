@@ -51,7 +51,7 @@ namespace PeopleAPI.Migrations
 
             modelBuilder.Entity("PeopleAPI.Models.Product", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("productId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -71,7 +71,7 @@ namespace PeopleAPI.Migrations
                     b.Property<decimal>("productPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("id");
+                    b.HasKey("productId");
 
                     b.ToTable("Products");
                 });
